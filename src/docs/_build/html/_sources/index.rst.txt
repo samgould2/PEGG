@@ -1,0 +1,51 @@
+.. PEGG documentation master file, created by
+   sphinx-quickstart on Wed Sep 28 12:28:06 2022.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+|PEGG| PEGG: Prime Editing Guide Generator 
+============================================
+
+.. |PEGG| image:: PEGG_3.png
+   :width: 200px
+   :height: 200px
+
+PEGG is a python module that designs prime editing guide RNAs (pegRNAs) for use in precision genome editing.
+Unlike the existing, web-based programs for pegRNA design, PEGG is suitable for designing thousands of pegRNAs at once, giving users the ability to design entire libraries of pegRNAs.
+
+PEGG's main functions are as follows:
+
+(1) Generating pegRNAs based on a list of input mutations
+
+(2) Ranking and filtering these pegRNAs based on their properties
+
+(3) Automated oligo generation
+
+(4) Automated pegRNA library design with included silent substitution control pegRNAs
+
+(5) Visualiation Tools for individual pegRNA design and library design
+
+Upcoming versions of PEGG will also include the ability to map mutations from the human to the mouse genome.
+
+Should include something about the sensor??
+
+Installation
+**************
+PEGG is available through the python package index. To install, use pip: 
+
+.. code-block:: python
+
+   pip install pegg
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   quickstart
+
+   PEGG
+   about
+
+Function Index
+***************
+* :ref:`genindex`
