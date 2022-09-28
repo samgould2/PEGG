@@ -12,7 +12,7 @@
 #
 import os
 import sys
-import nltk_theme
+#import nltk_theme
 sys.path.insert(0, os.path.abspath('..'))
 
 
@@ -28,7 +28,7 @@ author = 'Samuel Gould'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc', 'nltk_theme'
+extensions = ['sphinx.ext.autodoc'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -46,6 +46,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 ##html_theme = 'insegel'
 html_theme = 'nltk_theme'
+html_theme_path = ["_themes", ]
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
