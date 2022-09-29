@@ -1,2 +1,1 @@
-sphinx-autodoc-annotation
-sphinx-apidoc
+sphinx-autodoc-annotation == 1.0-1
