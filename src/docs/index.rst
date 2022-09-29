@@ -45,8 +45,7 @@ PEGG is available through the python package index. To install, use pip:
 
    PEGG
    about
-   modules
-   
+
 Function Index
 ***************
 * :ref:`genindex`
