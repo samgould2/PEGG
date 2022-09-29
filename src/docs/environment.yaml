@@ -1,9 +1,0 @@
-name: docs
-channels:
-  - conda-forge
-  - defaults
-dependencies:
-  - sphinx==4.2.0
-  - nbsphinx==0.8.1
-  - pip:
-    - sphinx-autodoc-annotation == 1.0-1
