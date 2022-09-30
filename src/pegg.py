@@ -2354,7 +2354,7 @@ def library_input_generator(mutant_input, gene_name, chrom, strand, start_end_cd
     cod = list(neutral_muts['codon'])
     
     num_desired1 = int(len(df)*control_fraction/(1-control_fraction)) #getting number of muts for desired frac
-    num_desired = max(num_desired1, len(cod))
+    num_desired = min(num_desired1, len(cod))
     
     selected_cods = []
     for i in range(0,len(cod),len(cod)//num_desired):
