@@ -1,4 +1,5 @@
 LICENSE
+README.rst
 setup.py
 src/pegg.py
 src/pegg.egg-info/PKG-INFO
