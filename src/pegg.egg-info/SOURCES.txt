@@ -4,4 +4,5 @@ src/pegg.py
 src/pegg.egg-info/PKG-INFO
 src/pegg.egg-info/SOURCES.txt
 src/pegg.egg-info/dependency_links.txt
+src/pegg.egg-info/requires.txt
 src/pegg.egg-info/top_level.txt
