@@ -1,5 +1,5 @@
-Complete Function Documentation
-=================================
+📚 Complete Function Documentation
+===================================
 
 This page contains the complete documentation for each function in the pegg module. 
 

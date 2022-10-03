@@ -1,3 +1,3 @@
-About PEGG
-===========
+❓ About PEGG
+==============
 Author: Samuel Gould

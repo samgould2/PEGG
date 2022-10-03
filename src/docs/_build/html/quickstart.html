@@ -72,21 +72,21 @@
 <li class="toctree-l2"><a class="reference internal" href="#required-input-files">Required Input Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reference-file-formatting">Reference File Formatting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#input-mutations">(1) Input mutations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-compatible-input-files">(1a) Compatible Input Files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reference-genome">(2) Reference Genome</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#on-off-target-scores">(3) On/Off Target scores</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#using-pegg">Using PEGG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visualization-tools">Visualization Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oligo-generation">Oligo Generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#library-generation">Library Generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#jupyter-notebook-tutorial">Jupyter Notebook Tutorial</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#a-note-on-ram">A Note on RAM</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="PEGG.html">Complete Function Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="about.html">About PEGG</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">src</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="PEGG.html">Complete Function Documentation</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="PEGG.html">📚 Complete Function Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">❓ About PEGG</a></li>
 </ul>
 
   
@@ -133,10 +133,6 @@ to allow PEGG to generate pegRNAs.</p>
 <p>First let’s load in a dataframe containing a list of input mutations (1):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pegg</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">gzip</span>
-<span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SeqIO</span>
-<span class="c1">#pandas, gzip, and Bio.SeqIO are required for parsing the reference files</span>
-<span class="c1">#they can be easily downloaded using &#39;pip install _____&#39;</span>
 
 <span class="c1">#------(1) loading in input mutatations-------------</span>
 <span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;.../2020-06-16-MSK-IMPACT_EDITED.txt&#39;</span>
@@ -144,7 +140,7 @@ to allow PEGG to generate pegRNAs.</p>
 </pre></div>
 </div>
 <p>The above codeblock shows how to load in the sample mutation input file available in the <a class="reference external" href="https://www.dropbox.com/sh/h6fdvpv3tyny27q/AADYVOkJe12XZiD4pf3_WXuga?dl=0">dropbox of reference files</a>.
-To use <strong>your own mutation input</strong>, the input mutations follow the format shown in the dataframe below:</p>
+To use <strong>your own mutation input</strong>, the input mutations must follow the format shown in the dataframe below:</p>
 <img alt="_images/mutant_input.png" src="_images/mutant_input.png" />
 <p>Namely, 7 columns are required, providing information about the input mutations relative to the provided reference genome.
 The input mutation dataframe <strong>must match the column naming scheme shown above</strong>:</p>
@@ -157,6 +153,12 @@ The input mutation dataframe <strong>must match the column naming scheme shown a
 <li><p>Reference_Allele: what is the reference allele. For insertions, this can be set to “-“.</p></li>
 <li><p>Tumor_Seq_Allele2: what is the mutant allele (i.e. what is the mutation sequence). For deletions, this can be set to “-“.</p></li>
 </ol>
+</section>
+<section id="a-compatible-input-files">
+<h3>(1a) Compatible Input Files<a class="headerlink" href="#a-compatible-input-files" title="Permalink to this headline">¶</a></h3>
+<p>All of the mutation files listed in the cBioPortal are in the correct format for input into PEGG.
+They can be accessed at the following link: <a class="reference external" href="http://www.cbioportal.org/datasets">http://www.cbioportal.org/datasets</a></p>
+<p>See the jupyter notebook tutorial for a more in depth case study of using these reference databases.</p>
 </section>
 <section id="reference-genome">
 <h3>(2) Reference Genome<a class="headerlink" href="#reference-genome" title="Permalink to this headline">¶</a></h3>
@@ -180,7 +182,12 @@ while <strong>index_list</strong> provides the indeces needed to place the chrom
 <li><p>An alternate way to format these input files is to have <strong>records</strong> list have the chromosome sequences in order from 1-22, chrX, and chrY, and set <strong>index_list</strong> = list(range(24))</p></li>
 </ul>
 <p>See the following codeblock for how to set up <strong>records</strong> and <strong>index_list</strong> using the <a class="reference external" href="https://www.dropbox.com/sh/h6fdvpv3tyny27q/AADYVOkJe12XZiD4pf3_WXuga?dl=0">provided reference genome file, GrCh37</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#------(2) loading in reference genome GrCh37-------------</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SeqIO</span>
+<span class="c1">#gzip, and Bio.SeqIO are required for parsing the reference files</span>
+<span class="c1">#they can be easily downloaded using &#39;pip install _____&#39;</span>
+
+<span class="c1">#------(2) loading in reference genome GrCh37-------------</span>
 <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;.../GRCh37/ncbi-genomes-2022-03-17/GCF_000001405.25_GRCh37.p13_genomic.fna.gz&#39;</span>
 
 <span class="c1">#using gzip to load in the file...</span>
@@ -197,7 +204,7 @@ while <strong>index_list</strong> provides the indeces needed to place the chrom
       <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ii</span><span class="p">:</span>
             <span class="n">badlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
 
-<span class="c1">#creating an index for</span>
+<span class="c1">#creating an index for putting the sequences in records in the correct order</span>
 <span class="n">index_list</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">records</span><span class="p">):</span>
    <span class="n">ii</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">description</span>
@@ -225,20 +232,139 @@ GrCh38 will be provided shortly and available in the <a class="reference externa
 </section>
 <section id="using-pegg">
 <h2>Using PEGG<a class="headerlink" href="#using-pegg" title="Permalink to this headline">¶</a></h2>
-<p>Now that our reference files are loaded in, and PEGG is imported as a module, using PEGG is simple.</p>
+<p>Now that our reference files are loaded in, and PEGG is imported as a module, using PEGG is simple.
+We simply need to specify parameters which correspond with the different options associated with prime editing,
+as depicted in the visualization below:</p>
+<img alt="_images/PE_schematic.png" src="_images/PE_schematic.png" />
+<p>Namely, the user must specify:</p>
+<ol class="arabic simple">
+<li><p>Select mutations within mutant_input to generate pegRNAs for. This is done by providing a list of indeces that correspond with the desired mutations. The alternative is simply setting this to <strong>all mutations in the datasets, by having mut_idx_list = list(range(len(mutant_input)))</strong>.</p></li>
+<li><p>PAM sequence (string format)</p></li>
+<li><p>How many guides to return per mutation</p></li>
+<li><p>A list of RTT and PBS lengths to search.</p></li>
+</ol>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#specify which mutations within mutant_input to generate pegRNAs for</span>
-<span class="c1">#here we&#39;re going to just generate pegRNAs for 2 mutations, corresponding to row 422804 and row 16 of mutant_input</span>
-<span class="n">mut_idx_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">422804</span><span class="p">,</span> <span class="mi">16</span><span class="p">]</span> <span class="c1">#alternatively, we can generate pegRNAs for the entire dataset = list(range(len(mutant_input)))</span>
-<span class="n">PAM</span> <span class="o">=</span> <span class="s1">&#39;NGG&#39;</span> <span class="c1">#specify PAM sequence</span>
-<span class="n">guides_per_mut</span> <span class="o">=</span> <span class="mi">5</span>    <span class="c1">#specify how many pegRNAs to return for each mutation</span>
-<span class="n">RTT_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">30</span><span class="p">]</span> <span class="c1">#specify RTT lengths and PBS lengths to generate pegRNAs for</span>
+<span class="c1">#here we&#39;re going to just generate pegRNAs for 1 mutation, corresponding to row 4 of mutant_input</span>
+<span class="n">mut_idx_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">PAM</span> <span class="o">=</span> <span class="s1">&#39;NGG&#39;</span>
+<span class="n">guides_per_mut</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1">#specify how many pegRNAs to return for each mutation</span>
+<span class="n">RTT_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">30</span><span class="p">]</span> <span class="c1">#specify RTT lengths and PBS lengths to search</span>
 <span class="n">PBS_lengths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
 <span class="n">minus_seqs</span> <span class="o">=</span> <span class="n">pegg</span><span class="o">.</span><span class="n">minus_seq_generator</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">index_list</span><span class="p">)</span>
 
 <span class="c1">#now generating the pegRNAs</span>
-<span class="n">ranked_filtered_output</span> <span class="o">=</span> <span class="n">pegg</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">mutant_input</span><span class="p">,</span> <span class="n">mut_idx_list</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">index_list</span><span class="p">,</span> <span class="n">minus_seqs</span><span class="p">,</span> <span class="n">chrom_dict</span><span class="p">,</span> <span class="n">PAM</span><span class="p">,</span> <span class="n">RTT_lengths</span><span class="p">,</span> <span class="n">PBS_lengths</span><span class="p">,</span> <span class="n">guides_per_mut</span><span class="p">)</span>
+<span class="n">run_output</span> <span class="o">=</span> <span class="n">pegg</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">mutant_input</span><span class="p">,</span> <span class="n">mut_idx_list</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">index_list</span><span class="p">,</span> <span class="n">minus_seqs</span><span class="p">,</span> <span class="n">chrom_dict</span><span class="p">,</span> <span class="n">PAM</span><span class="p">,</span> <span class="n">RTT_lengths</span><span class="p">,</span> <span class="n">PBS_lengths</span><span class="p">,</span> <span class="n">guides_per_mut</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="visualization-tools">
+<h2>Visualization Tools<a class="headerlink" href="#visualization-tools" title="Permalink to this headline">¶</a></h2>
+<p>PEGG has built in tools for visualizing the pegRNAs it generates, providing the ability to spot-check designs.</p>
+<p>In the sample below, we generate our pegRNAs using the run() function and then select a pegRNA from the resulting
+output dataframe to visualize, using <strong>pegg.pegrna_display()</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pegRNA_df_loc</span><span class="o">=</span><span class="mi">0</span> <span class="c1">#choosing which guide to display from the dataframe</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">pegg</span><span class="o">.</span><span class="n">pegrna_display</span><span class="p">(</span><span class="n">run_output</span><span class="p">,</span> <span class="n">pegRNA_df_loc</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">index_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/pegviz.png" src="_images/pegviz.png" />
+<p>There’s another built-in tool for visualizing the 3’ extension (RTT and PBS sequence) of pegRNAs.
+In the example below, we use it to visualize the 3’ extensions of the first 4 guides in the output using
+<strong>pegg.align_display()</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pegg</span><span class="o">.</span><span class="n">align_display</span><span class="p">(</span><span class="n">run_output</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">records</span><span class="p">,</span> <span class="n">index_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/align_display.png" src="_images/align_display.png" />
+</section>
+<section id="oligo-generation">
+<h2>Oligo Generation<a class="headerlink" href="#oligo-generation" title="Permalink to this headline">¶</a></h2>
+<p>To automatically generate oligonucleotides that contain the pegRNAs designed using PEGG, the <strong>pegg.oligo_generator()</strong>
+function provides multiple options, and produces both a <strong>pegRNA oligo</strong> and an <strong>epegRNA oligo</strong> (with a 3’ structural motif, <a class="reference external" href="https://www.nature.com/articles/s41587-021-01039-7">tevopreQ1</a>).</p>
+<p>A unique feature of PEGG is the option to include a <a class="reference external" href="https://www.nature.com/articles/s41587-021-01172-3">sensor region</a>  in the oligo.
+This sensor region is a synthetic version of the endogenous target site, providing the ability to measure a proxy of editing outcomes at the endogenous locus.
+This approach can be useful in the context of a library of pegRNAs, allowing for the measurement of pegRNA enrichment/depletion <em>as well as</em> a proxy of editing outcomes
+with a single NGS amplicon. The below schematic shows a schematic of the oligos that are output with sensor=True or sensor=False:</p>
+<img alt="_images/oligos.png" src="_images/oligos.png" />
+<p>Additionally, users need to specify whether they want to append a ‘G’ nucleotide to the beginning of the protospacer.
+This is reccomended in the original Anzalone et al., 2019 prime editing paper. The sensor and append_proto_G options are both set to True in the below example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">oligos_w_sensor</span> <span class="o">=</span> <span class="n">pegg</span><span class="o">.</span><span class="n">oligo_generator</span><span class="p">(</span><span class="n">run_output</span><span class="p">,</span> <span class="n">append_proto_G</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sensor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This returns a dataframe that has the oligos appended as columns (‘pegRNA_oligo’ and ‘epegRNA_tevopreQ1_oligo’ are the column names).</p>
+<p>Users can also specify which 3’ and 5’ adapter sequences they want to use, or simply leave these options blank
+and use the built-in adapters provided by the authors. In addition, users can specify to use a different gRNA scaffold,
+or use the canonical gRNA scaffold provided by the authors. In the above example, these parameters
+(3_prime_adapter, 5_prime_adapter, and gRNA_scaff) are left empty, so the default versions provided by the author are used.</p>
+<p>See the complete function documentation tab for more information about <strong>pegg.oligo_generator()</strong>.</p>
+</section>
+<section id="library-generation">
+<h2>Library Generation<a class="headerlink" href="#library-generation" title="Permalink to this headline">¶</a></h2>
+<p>PEGG also includes automated library generation and visualization functions.
+These provide the ability to automatically select all of the mutations associated with a particular gene,
+generate pegRNAs for these mutations, and generate neutral pegRNAs that introduce silent mutations as internal controls.</p>
+<p>The code below shows how to generate the neutral/silent substitutions based on inputting information about a gene
+as well as providing a list of the coding sequence locations of the relevant transcript. This list is generated manually in the example
+below. The jupyter notebook tutorial shows how this step can be automated based on using available gene annotations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gene_name</span><span class="o">=</span><span class="s1">&#39;TP53&#39;</span>
+<span class="n">strand</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+<span class="n">chrom</span><span class="o">=</span><span class="s1">&#39;chr17&#39;</span>
+<span class="c1">#listing CDS of transcript ordered by +end</span>
+<span class="n">start_end_cds</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">7572930</span><span class="p">,</span> <span class="mi">7573008</span><span class="p">],</span>
+<span class="p">[</span><span class="mi">7573927</span><span class="p">,</span> <span class="mi">7574033</span><span class="p">],</span>
+<span class="p">[</span><span class="mi">7576853</span><span class="p">,</span> <span class="mi">7576926</span><span class="p">],</span>
+<span class="p">[</span><span class="mi">7577019</span><span class="p">,</span> <span class="mi">7577155</span><span class="p">],</span>
+<span class="p">[</span><span class="mi">7577499</span><span class="p">,</span> <span class="mi">7577608</span><span class="p">],</span>
+<span class="p">[</span><span class="mi">7578177</span><span class="p">,</span> <span class="mi">7578289</span><span class="p">],</span>
+<span class="p">[</span><span class="mi">7578371</span><span class="p">,</span> <span class="mi">7578554</span><span class="p">],</span>
+<span class="p">[</span><span class="mi">7579312</span><span class="p">,</span> <span class="mi">7579590</span><span class="p">],</span>
+<span class="p">[</span><span class="mi">7579700</span><span class="p">,</span> <span class="mi">7579721</span><span class="p">],</span>
+<span class="p">[</span><span class="mi">7579839</span><span class="p">,</span> <span class="mi">7579912</span><span class="p">]]</span>
+<span class="n">neutral_p53</span> <span class="o">=</span> <span class="n">pegg</span><span class="o">.</span><span class="n">neutral_substitutions</span><span class="p">(</span><span class="n">gene_name</span><span class="p">,</span> <span class="n">chrom</span><span class="p">,</span> <span class="n">strand</span><span class="p">,</span> <span class="n">start_end_cds</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">index_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This generates a dataframe of all possible neutral mutations:</p>
+<img alt="_images/neutral_sub.png" src="_images/neutral_sub.png" />
+<p>The above function is actually not needed to generate these libraries with internal controls included.
+This can be done by simply running the below function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">control_fraction</span><span class="o">=</span><span class="mf">.01</span> <span class="c1">#what fraction of the library do you want to be neutral/silent pegRNAs</span>
+<span class="n">library_input</span> <span class="o">=</span> <span class="n">pegg</span><span class="o">.</span><span class="n">library_input_generator</span><span class="p">(</span><span class="n">mutant_input</span><span class="p">,</span> <span class="n">gene_name</span><span class="p">,</span> <span class="n">chrom</span><span class="p">,</span> <span class="n">strand</span><span class="p">,</span> <span class="n">start_end_cds</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">index_list</span><span class="p">,</span> <span class="n">control_fraction</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once this library input is generated, this can simply be fed into the <strong>pegg.run()</strong> function as shown previously.
+In addition, there are built in library visualization tools. To use these, the user needs to add some information back into
+the library_input dataframe. Namely, neutral guides need to be labelled, and HGVSp information needs to be added back to the dataframe
+if it’s available:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#generating the pegRNA library</span>
+<span class="c1">#same input required as shown previously</span>
+<span class="n">ranked_filtered</span> <span class="o">=</span> <span class="n">pegg</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">mutant_input</span><span class="p">,</span> <span class="n">mut_idx_list</span><span class="p">,</span> <span class="n">records</span><span class="p">,</span> <span class="n">index_list</span><span class="p">,</span> <span class="n">minus_seqs</span><span class="p">,</span> <span class="n">chrom_dict</span><span class="p">,</span> <span class="n">PAM</span><span class="p">,</span> <span class="n">RTT_lengths</span><span class="p">,</span> <span class="n">PBS_lengths</span><span class="p">,</span> <span class="n">guides_per_mut</span><span class="p">)</span>
+
+<span class="c1">#adding HGVSp information back to the dataframe if it&#39;s available...</span>
+<span class="n">hg</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">ranked_filtered</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+   <span class="n">idx</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="s1">&#39;mutant index&#39;</span><span class="p">]</span>
+   <span class="n">hgvsp</span> <span class="o">=</span> <span class="n">mutant_input</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">idx</span><span class="p">]][</span><span class="s1">&#39;HGVSp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="n">hg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hgvsp</span><span class="p">)</span>
+
+<span class="c1">#also add in information for identifying neutral mutations</span>
+<span class="n">class_mut</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">ranked_filtered</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+   <span class="n">idx</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="s1">&#39;mutant index&#39;</span><span class="p">]</span>
+   <span class="n">neut</span> <span class="o">=</span> <span class="n">mutant_input</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">idx</span><span class="p">]][</span><span class="s1">&#39;classification&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="n">class_mut</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neut</span><span class="p">)</span>
+
+<span class="n">ranked_filtered</span><span class="p">[</span><span class="s1">&#39;HGVSp&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">hg</span>
+<span class="n">ranked_filtered</span><span class="p">[</span><span class="s1">&#39;classification&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">class_mut</span>
+</pre></div>
+</div>
+<p>Once this is done, the libraries can be visualized using either of the two functions below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pegg</span><span class="o">.</span><span class="n">lollipop_library</span><span class="p">(</span><span class="n">ranked_filtered</span><span class="p">,</span> <span class="n">gene_name</span><span class="p">,</span> <span class="n">start_end_cds</span><span class="p">,</span> <span class="n">strand</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/lollipop.png" src="_images/lollipop.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pegg</span><span class="o">.</span><span class="n">matrix_rep_library</span><span class="p">(</span><span class="n">ranked_filtered</span><span class="p">,</span> <span class="n">gene_name</span><span class="p">,</span> <span class="n">start_end_cds</span><span class="p">,</span> <span class="n">strand</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/matrix_lib.png" src="_images/matrix_lib.png" />
+<p>More information about the library generation functionality is provided in the jupyter notebook tutorial.</p>
 </section>
 <section id="jupyter-notebook-tutorial">
 <h2>Jupyter Notebook Tutorial<a class="headerlink" href="#jupyter-notebook-tutorial" title="Permalink to this headline">¶</a></h2>

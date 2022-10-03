@@ -13,7 +13,7 @@
 PEGG is a python module that designs prime editing guide RNAs (pegRNAs) for use in precision genome editing.
 Unlike the existing, web-based programs for pegRNA design, PEGG is suitable for designing thousands of pegRNAs at once, giving users the ability to design entire libraries of pegRNAs.
 
-PEGG's main functions are as follows:
+PEGG's main functions are:
 
 (1) Generating pegRNAs based on a list of input mutations
 
@@ -23,7 +23,7 @@ PEGG's main functions are as follows:
 
 (4) Automated pegRNA library design with included silent substitution control pegRNAs
 
-(5) Visualiation Tools for individual pegRNA design and library design
+(5) Visualization Tools for individual pegRNA design and library design
 
 Upcoming versions of PEGG will also include the ability to map mutations from the human to the mouse genome.
 
@@ -45,8 +45,7 @@ PEGG is available through the python package index. To install, use pip:
 
    PEGG
    about
-   modules
-   
+
 Function Index
 ***************
 * :ref:`genindex`
