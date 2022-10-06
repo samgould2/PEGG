@@ -40,7 +40,7 @@ PEGG is available through the python package index. To install, use pip:
    :caption: Contents:
 
    quickstart
-
+   jupyter_tutorial
    PEGG
    about
 
