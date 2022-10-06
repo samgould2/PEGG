@@ -24,6 +24,44 @@ pd.set_option('display.max_columns', 50)
 
 
 #-----------functions------------
+def genome_loader(filepath_gz):
+    """
+    Takes in filepath of human genome (GrCH37 or GrCh38) and returns records and index_list for PEGG parsing.
+    
+    Parameters
+    -----------
+    filepath_gz
+        *type = str*
+        
+        The filepath to the .gz file holding the refernce genome file.
+    
+    """
+    #------loading in reference genome and organizing it into a 2-d list by chromosome---------------------
+
+    with gzip.open(filepath_gz, "rt") as handle:
+        records = list(SeqIO.parse(handle, "fasta")) #about 4 Gb in  memory
+        #records = list that contains sequences split up by chromosome (and intrachromosome splits up to some size)
+
+    #filtering out alternative sequences to only select consensus chromosome sequences
+    wrong = ["alternate", "unplaced", "unlocalized", "patch"]
+    badlist = []
+    for key in wrong:
+        for i in records:
+            ii = i.description
+            if key in ii:
+                badlist.append(ii)
+
+    #creating an 
+    filtered = []
+    index_list = []
+    for idx, i in enumerate(records):
+        ii = i.description
+        if ii not in badlist:
+            filtered.append(ii)
+            index_list.append(idx)
+            
+    return records, index_list
+
 
 def PAM_finder(mutant_input, PAM, RTT_length, mut_idx, records, index_list):
     """Identifies the location of PAM sequences on the + and - strand.

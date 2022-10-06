@@ -19,7 +19,7 @@ PEGG's main functions are:
 
 (2) Ranking and filtering these pegRNAs based on their properties
 
-(3) Automated oligo generation (with the option to a synthetic "sensor" region)
+(3) Automated oligo generation (with the option to include a synthetic "sensor" region)
 
 (4) Automated pegRNA library design with included silent substitution control pegRNAs
 
