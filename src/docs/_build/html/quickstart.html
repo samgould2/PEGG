@@ -162,7 +162,7 @@ They can be accessed at the following link: <a class="reference external" href="
 </section>
 <section id="reference-genome">
 <h3>(2) Reference Genome<a class="headerlink" href="#reference-genome" title="Permalink to this headline">¶</a></h3>
-<p>And now let’s load in the reference genome. I suggest using the codeblock below if you’re using GrCh37 as a reference file.
+<p>And now let’s load in the reference genome. I suggest using the codeblock below if you’re using GrCh37 or GrCh38 as a reference file.
 Otherwise, the format needs to be as follows:</p>
 <ul>
 <li><p><strong>records</strong> = a list containing the chromosome sequences (preferably parsed by SeqIO).</p></li>
@@ -181,35 +181,11 @@ while <strong>index_list</strong> provides the indeces needed to place the chrom
 <ul class="simple">
 <li><p>An alternate way to format these input files is to have <strong>records</strong> list have the chromosome sequences in order from 1-22, chrX, and chrY, and set <strong>index_list</strong> = list(range(24))</p></li>
 </ul>
-<p>See the following codeblock for how to set up <strong>records</strong> and <strong>index_list</strong> using the <a class="reference external" href="https://www.dropbox.com/sh/h6fdvpv3tyny27q/AADYVOkJe12XZiD4pf3_WXuga?dl=0">provided reference genome file, GrCh37</a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">gzip</span>
-<span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">SeqIO</span>
-<span class="c1">#gzip, and Bio.SeqIO are required for parsing the reference files</span>
-<span class="c1">#they can be easily downloaded using &#39;pip install _____&#39;</span>
+<p>See the following codeblock for how to set up <strong>records</strong> and <strong>index_list</strong> using the <a class="reference external" href="https://www.dropbox.com/sh/h6fdvpv3tyny27q/AADYVOkJe12XZiD4pf3_WXuga?dl=0">provided reference genome files, GrCh37 &amp; GrCh38</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#filepath to .gz containing reference genome (here = GrCh37)</span>
+<span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;./GCF_000001405.25_GRCh37.p13_genomic.fna.gz&#39;</span>
 
-<span class="c1">#------(2) loading in reference genome GrCh37-------------</span>
-<span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;.../GRCh37/ncbi-genomes-2022-03-17/GCF_000001405.25_GRCh37.p13_genomic.fna.gz&#39;</span>
-
-<span class="c1">#using gzip to load in the file...</span>
-<span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;rt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
-   <span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">SeqIO</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="s2">&quot;fasta&quot;</span><span class="p">))</span> <span class="c1">#about 4 Gb in  memory</span>
-   <span class="c1">#records = list that contains sequences split up by chromosome</span>
-
-<span class="c1">#filtering out alternative sequences to only select consensus chromosome sequences</span>
-<span class="n">wrong</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;alternate&quot;</span><span class="p">,</span> <span class="s2">&quot;unplaced&quot;</span><span class="p">,</span> <span class="s2">&quot;unlocalized&quot;</span><span class="p">,</span> <span class="s2">&quot;patch&quot;</span><span class="p">]</span>
-<span class="n">badlist</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">wrong</span><span class="p">:</span>
-   <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
-      <span class="n">ii</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">description</span>
-      <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ii</span><span class="p">:</span>
-            <span class="n">badlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
-
-<span class="c1">#creating an index for putting the sequences in records in the correct order</span>
-<span class="n">index_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">records</span><span class="p">):</span>
-   <span class="n">ii</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">description</span>
-   <span class="k">if</span> <span class="n">ii</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">badlist</span><span class="p">:</span>
-      <span class="n">index_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+<span class="n">records</span><span class="p">,</span> <span class="n">index_list</span> <span class="o">=</span> <span class="n">pegg</span><span class="o">.</span><span class="n">genome_loader</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>

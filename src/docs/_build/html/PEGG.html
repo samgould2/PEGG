@@ -211,6 +211,17 @@ Keys = chromosome identifiers. See documentation for more information and access
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="pegg.genome_loader">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">genome_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath_gz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.genome_loader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in filepath of human genome (GrCH37 or GrCh38) and returns records and index_list for PEGG parsing.</p>
+<dl>
+<dt>filepath_gz</dt><dd><p><em>type = str</em></p>
+<p>The filepath to the .gz file holding the reference genome file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="pegg.library_input_generator">
 <span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">library_input_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutant_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chrom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strand</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_end_cds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_fraction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.library_input_generator" title="Permalink to this definition">¶</a></dt>
 <dd><p>A function for generating a library of input mutations corresponding to all of the mutations occuring in the 

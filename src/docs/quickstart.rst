@@ -78,7 +78,7 @@ See the jupyter notebook tutorial for a more in depth case study of using these 
 (2) Reference Genome
 ~~~~~~~~~~~~~~~~~~~~~
 
-And now let's load in the reference genome. I suggest using the codeblock below if you're using GrCh37 as a reference file.
+And now let's load in the reference genome. I suggest using the codeblock below if you're using GrCh37 or GrCh38 as a reference file.
 Otherwise, the format needs to be as follows:
 
 - **records** = a list containing the chromosome sequences (preferably parsed by SeqIO).
@@ -94,38 +94,14 @@ while **index_list** provides the indeces needed to place the chromosome sequenc
 
 - An alternate way to format these input files is to have **records** list have the chromosome sequences in order from 1-22, chrX, and chrY, and set **index_list** = list(range(24))
 
-See the following codeblock for how to set up **records** and **index_list** using the `provided reference genome file, GrCh37 <https://www.dropbox.com/sh/h6fdvpv3tyny27q/AADYVOkJe12XZiD4pf3_WXuga?dl=0>`_.
+See the following codeblock for how to set up **records** and **index_list** using the `provided reference genome files, GrCh37 & GrCh38 <https://www.dropbox.com/sh/h6fdvpv3tyny27q/AADYVOkJe12XZiD4pf3_WXuga?dl=0>`_.
 
 .. code-block:: python
 
-   import gzip
-   from Bio import SeqIO
-   #gzip, and Bio.SeqIO are required for parsing the reference files
-   #they can be easily downloaded using 'pip install _____'
+   #filepath to .gz containing reference genome (here = GrCh37)
+   filepath = './GCF_000001405.25_GRCh37.p13_genomic.fna.gz'
 
-   #------(2) loading in reference genome GrCh37-------------
-   file = '.../GRCh37/ncbi-genomes-2022-03-17/GCF_000001405.25_GRCh37.p13_genomic.fna.gz'
-
-   #using gzip to load in the file...
-   with gzip.open(file, "rt") as handle:
-      records = list(SeqIO.parse(handle, "fasta")) #about 4 Gb in  memory
-      #records = list that contains sequences split up by chromosome
-
-   #filtering out alternative sequences to only select consensus chromosome sequences
-   wrong = ["alternate", "unplaced", "unlocalized", "patch"]
-   badlist = []
-   for key in wrong:
-      for i in records:
-         ii = i.description
-         if key in ii:
-               badlist.append(ii)
-               
-   #creating an index for putting the sequences in records in the correct order
-   index_list = []
-   for idx, i in enumerate(records):
-      ii = i.description
-      if ii not in badlist:
-         index_list.append(idx)
+   records, index_list = pegg.genome_loader(filepath)
 
 (3) On/Off Target scores
 ~~~~~~~~~~~~~~~~~~~~~~~~~

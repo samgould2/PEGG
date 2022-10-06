@@ -33,7 +33,7 @@ def genome_loader(filepath_gz):
     filepath_gz
         *type = str*
         
-        The filepath to the .gz file holding the refernce genome file.
+        The filepath to the .gz file holding the reference genome file.
     
     """
     #------loading in reference genome and organizing it into a 2-d list by chromosome---------------------
