@@ -20,6 +20,7 @@ import re
 import seaborn as sns
 #import matplotlib.patches as patches
 from matplotlib.patches import Polygon
+from cyvcf2 import VCF
 pd.set_option('display.max_columns', 50)
 
 
@@ -2716,7 +2717,6 @@ def matrix_rep_library(rf,gene_name,start_end_cds, strand, plot=True):
     return matrix_snp,matrix_ins, matrix_del, matrix_neutral
 
 #------------ClinVar variation id reader-----------------
-from cyvcf2 import VCF
 
 def clinvar_VCF_translator(filepath, variation_ids):
     """

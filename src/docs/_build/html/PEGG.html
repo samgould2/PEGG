@@ -104,6 +104,550 @@
   <section id="complete-function-documentation">
 <h1>📚 Complete Function Documentation<a class="headerlink" href="#complete-function-documentation" title="Permalink to this headline">¶</a></h1>
 <p>This page contains the complete documentation for each function in the pegg module.</p>
+<span class="target" id="module-pegg"></span><dl class="py function">
+<dt class="sig sig-object py" id="pegg.PAM_finder">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">PAM_finder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutant_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PAM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RTT_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mut_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.PAM_finder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifies the location of PAM sequences on the + and - strand.
+Returns a 2-d array containing marked locations of PAM sequence start locations on + and - strand.</p>
+<dl>
+<dt>mutant_input</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the input mutations from which selections are made to generate pegRNAs.
+See documentation for precise qualities of this dataframe</p>
+</dd>
+<dt>PAM</dt><dd><p><em>type = str</em></p>
+<p>String designating what PAM sequence to search for. Not all PAM sequences exhaustively tested.
+Normally this will be equal to ‘NGG’ for most existing prime editors.</p>
+</dd>
+<dt>RTT_length</dt><dd><p><em>type = int</em></p>
+<p>Specifies the reverse transcriptase template (RTT) length of the pegRNA being generated.</p>
+</dd>
+<dt>mut_idx</dt><dd><p><em>type = int</em></p>
+<p>Index of mutation within mutant_input. Defines which mutation to identify PAM sequences for.</p>
+</dd>
+<dt>records</dt><dd><p><em>type = list</em></p>
+<p>List containing reference genome. See documentation for precise requirements.</p>
+</dd>
+<dt>index_list</dt><dd><p><em>type = list</em></p>
+<p>Index for records (reference genome). See documentation for precise requirements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.PAM_finder_multi_index">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">PAM_finder_multi_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutant_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PAM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RTT_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mut_idx_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.PAM_finder_multi_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifies the location of PAM sequences on the + and - strand for a LIST OF INPUT MUTATIONS. 
+Returns a list of 2-d arrays containing marked locations of PAM sequence start locations on + and - strand.</p>
+<dl>
+<dt>mutant_input</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the input mutations from which selections are made to generate pegRNAs.
+See documentation for precise qualities of this dataframe</p>
+</dd>
+<dt>PAM</dt><dd><p><em>type = str</em></p>
+<p>String designating what PAM sequence to search for. Not all PAM sequences exhaustively tested.
+Normally this will be equal to ‘NGG’ for most existing prime editors.</p>
+</dd>
+<dt>RTT_length</dt><dd><p><em>type = int</em></p>
+<p>Specifies the reverse transcriptase template (RTT) length of the pegRNA being generated.</p>
+</dd>
+<dt>mut_idx_list</dt><dd><p><em>type = list</em></p>
+<p>List of indeces of mutations within mutant_input that user wants to identify PAM sequences for.</p>
+</dd>
+<dt>records</dt><dd><p><em>type = list</em></p>
+<p>List containing reference genome. See documentation for precise requirements.</p>
+</dd>
+<dt>index_list</dt><dd><p><em>type = list</em></p>
+<p>Index for records (reference genome). See documentation for precise requirements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.align_display">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">align_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pegRNA_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.align_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple visualization tool for aligning the 3’ extension of the pegRNAs in pegRNA_df to the reference genome.
+Useful for spot checking pegRNA designs.</p>
+<dl>
+<dt>pegRNA_df</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the pegRNAs for the selected input mutations. Generated by run() or pegRNA_generator()
+To subset (e.g. look at first 2 mutations), use a slice (e.g. pegRNA_df[0:2]).</p>
+</dd>
+<dt>records</dt><dd><p><em>type = list</em></p>
+<p>List containing reference genome. See documentation for precise requirements.</p>
+</dd>
+<dt>index_list</dt><dd><p><em>type = list</em></p>
+<p>Index for records list (reference genome). See documentation for precise requirements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.clinvar_VCF_translator">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">clinvar_VCF_translator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variation_ids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.clinvar_VCF_translator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that takes a clinvar.vcf.gz file containing information about variants, as well as a list of variation ID numbers,
+and returns a pandas dataframe containing the variants in a format that can be used by PEGG to design pegRNAs.</p>
+<dl>
+<dt>filepath</dt><dd><p><em>type = str</em></p>
+<p>Filepath to the clinvar.vcf.gz file.</p>
+</dd>
+<dt>variation_ids</dt><dd><p><em>type = list</em></p>
+<p>List of variation IDs that the user wants to convert to .</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.composite_score">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">composite_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pegRNA_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.composite_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates composite score of pegRNA properties for ranking purposes.
+This composite score is a weighted linear sum. Weights will be updated when training data is provided in future versions of PEGG.
+Requires that other_filtration() and on_off_target() are run on pegRNA_df first
+Returns pegRNA_df with composite score added added.</p>
+<dl>
+<dt>pegRNA_df</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the pegRNAs for the selected input mutations. Generated by run() or pegRNA_generator()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.filtration">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">filtration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pegRNA_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chrom_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.filtration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates properties of pegRNAs in pegRNA_df using on_off_target(), other_filtration(), and composite_score().
+Returns pegRNA_df with these properties added.</p>
+<dl>
+<dt>pegRNA_df</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the pegRNAs for the selected input mutations. Generated by run() or pegRNA_generator()</p>
+</dd>
+<dt>chrom_dict</dt><dd><p><em>type = dict</em></p>
+<p>A dictionary containing the on/off-target scores for each of the exonic regions in each chromosome.
+Keys = chromosome identifiers. See documentation for more information and access to provided reference file.</p>
+<p>If no reference file available SET THIS EQUAL TO ‘none’ and ranking will proceed without on/off target score.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.genome_loader">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">genome_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath_gz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.genome_loader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in filepath of human genome (GrCH37 or GrCh38) and returns records and index_list for PEGG parsing.</p>
+<dl>
+<dt>filepath_gz</dt><dd><p><em>type = str</em></p>
+<p>The filepath to the .gz file holding the reference genome file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.library_input_generator">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">library_input_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutant_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chrom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strand</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_end_cds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_fraction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.library_input_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function for generating a library of input mutations corresponding to all of the mutations occuring in the 
+desired gene to profile. In other words, this a tool for generating a library of input mutations for partial or
+full saturation mutagenesis of a target gene. Includes silent substitution control pegRNAs, to act as internal controls.</p>
+<dl>
+<dt>mutant_input</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the input mutations from which selections are made to generate pegRNAs.
+See documentation for precise qualities of this dataframe</p>
+</dd>
+<dt>gene_name</dt><dd><p><em>type = str</em></p>
+<p>Gene’s Hugo_Symbol (i.e. name).</p>
+</dd>
+<dt>chrom</dt><dd><p><em>type = str</em></p>
+<p>Chromosome that gene occurs on. Format = e.g. ‘chr17’, ‘chrX’, etc.</p>
+</dd>
+<dt>strand</dt><dd><p><em>type = str</em></p>
+<p>Strand that transcript is on. Options are ‘+’ or ‘-‘.</p>
+</dd>
+<dt>start_end_cds</dt><dd><p><em>type = list</em></p>
+<p>A 2-d list containing the start/end locations of each region of the coding sequence (CDS) for the gene’s selected transcript.
+See documentation for example and precise specifications of format.</p>
+</dd>
+<dt>records</dt><dd><p><em>type = list</em></p>
+<p>List containing reference genome. See documentation for precise requirements.</p>
+</dd>
+<dt>index_list</dt><dd><p><em>type = list</em></p>
+<p>Index for records list (reference genome). See documentation for precise requirements.</p>
+</dd>
+<dt>control_fraction</dt><dd><p><em>type = int</em></p>
+<p>Desired fraction of library that the user wants to be silent substitutions/control guides. Can range from 0 to 1.
+Reccomended ~.05 (5%).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.lollipop_library">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">lollipop_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_end_cds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strand</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.lollipop_library" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualization function for looking at the number of pegRNAs generated in each codon of target gene.
+Stratifies mutations by type and returns a 2-d array containing # of pegRNAs designed in each codon
+for each variant type (SNP, INS, DEL, ONP/neutral).</p>
+<dl>
+<dt>rf</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the pegRNAs generated by run().</p>
+</dd>
+<dt>gene_name</dt><dd><p><em>type = str</em></p>
+<p>Gene’s Hugo_Symbol (i.e. name).</p>
+</dd>
+<dt>start_end_cds</dt><dd><p><em>type = list</em></p>
+<p>A 2-d list containing the start/end locations of each region of the coding sequence (CDS) for the gene’s selected transcript.
+See documentation for example and precise specifications of format.</p>
+</dd>
+<dt>strand</dt><dd><p><em>type = str</em></p>
+<p>Strand that transcript is on. Options are ‘+’ or ‘-‘.</p>
+</dd>
+<dt>plot</dt><dd><p><em>type = boolean (‘True’ or ‘False’)</em></p>
+<p>If true, show stacked bar plot. If false, simply return the zero_array.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.matrix_rep_library">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">matrix_rep_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_end_cds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strand</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.matrix_rep_library" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualization function for looking at the number of pegRNAs generated in each codon of target gene.
+Also visualizes the identitity of mutant amino acid for SNPs in the input dataframe.</p>
+<p>FOR PROPER FUNCTION, REQUIRES USER INCLUSION OF HGVSp INFORMATION IN RF. See documentation for more info.</p>
+<p>Returns matrix_snp, matrix_ins, matrix_del, matrix_neutral, fig. First four return objects correspond with
+matrices used for plotting. Fig = figure, which can be saved/exported.</p>
+<dl>
+<dt>rf</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the pegRNAs generated by run().</p>
+</dd>
+<dt>gene_name</dt><dd><p><em>type = str</em></p>
+<p>Gene’s Hugo_Symbol (i.e. name).</p>
+</dd>
+<dt>start_end_cds</dt><dd><p><em>type = list</em></p>
+<p>A 2-d list containing the start/end locations of each region of the coding sequence (CDS) for the gene’s selected transcript.
+See documentation for example and precise specifications of format.</p>
+</dd>
+<dt>strand</dt><dd><p><em>type = str</em></p>
+<p>Strand that transcript is on. Options are ‘+’ or ‘-‘.</p>
+</dd>
+<dt>plot</dt><dd><p><em>type = boolean (‘True’ or ‘False’)</em></p>
+<p>If true, show stacked bar plot. If false, simply return the matrices.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.minus_seq_generator">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">minus_seq_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.minus_seq_generator" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Simple function that generates reverse complement of chromosome sequences.
+Reduces run time significantly by preventing undertaking this action multiple times.
+Returns list corresponding to reverse complement of records.</p>
+</div></blockquote>
+<dl>
+<dt>records</dt><dd><p><em>type = list</em></p>
+<p>List containing reference genome. See documentation for precise requirements.</p>
+</dd>
+<dt>index_list</dt><dd><p><em>type = list</em></p>
+<p>Index for records (reference genome). See documentation for precise requirements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.mutation_aggregator">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">mutation_aggregator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutant_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.mutation_aggregator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects the mutations that correspond to the desired gene name.
+Removes duplicates (checking at DNA level; not amino acid level).
+Returns dataframe containing these aggregated mutants occuring in gene_name.</p>
+<dl>
+<dt>mutant_input</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the input mutations from which selections are made to generate pegRNAs.
+See documentation for precise qualities of this dataframe</p>
+</dd>
+<dt>gene_name</dt><dd><p><em>type = str</em></p>
+<p>Gene’s Hugo_Symbol (i.e. name).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.mutation_consequences">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">mutation_consequences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutant_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mut_idx_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.mutation_consequences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the consequences of mutations at their genomic locus.
+Returns a list of genomic regions 50nt up/downstream with desired edit included (~100 nt total size +/- size of INS or DEL).
+Can be used for quantifying editing outcomes and other alignment purposes.</p>
+<dl>
+<dt>mutant_input</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the input mutations from which selections are made to generate pegRNAs.
+See documentation for precise qualities of this dataframe</p>
+</dd>
+<dt>mut_idx_list</dt><dd><p><em>type = list</em></p>
+<p>List of indeces of mutation within mutant_input that user wants to perform function on (i.e. a subset of the mutations).</p>
+</dd>
+<dt>records</dt><dd><p><em>type = list</em></p>
+<p>List containing reference genome. See documentation for precise requirements.</p>
+</dd>
+<dt>index_list</dt><dd><p><em>type = list</em></p>
+<p>Index for records (reference genome). See documentation for precise requirements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.neutral_substitutions">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">neutral_substitutions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chrom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strand</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_end_cds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.neutral_substitutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function for generating all possible synonymous codon substitutions (i.e. silent mutations) of a given gene.
+See documentation for more information about format of start_end_cds &amp; example usage.</p>
+<dl>
+<dt>gene_name</dt><dd><p><em>type = str</em></p>
+<p>Gene’s Hugo_Symbol (i.e. name).</p>
+</dd>
+<dt>chrom</dt><dd><p><em>type = str</em></p>
+<p>Chromosome that gene occurs on. Format = e.g. ‘chr17’, ‘chrX’, etc.</p>
+</dd>
+<dt>strand</dt><dd><p><em>type = str</em></p>
+<p>Strand that transcript is on. Options are ‘+’ or ‘-‘.</p>
+</dd>
+<dt>start_end_cds</dt><dd><p><em>type = list</em></p>
+<p>A 2-d list containing the start/end locations of each region of the coding sequence (CDS) for the gene’s selected transcript.
+See documentation for example and precise specifications of format.</p>
+</dd>
+<dt>records</dt><dd><p><em>type = list</em></p>
+<p>List containing reference genome. See documentation for precise requirements.</p>
+</dd>
+<dt>index_list</dt><dd><p><em>type = list</em></p>
+<p>Index for records list (reference genome). See documentation for precise requirements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.oligo_generator">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">oligo_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ranked_filtered</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">five_prime_adapter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'AGCGTACACGTCTCACACC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">three_prime_adapter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'GAATTCTAGATCCGGTCGTCAAC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gRNA_scaff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">append_proto_G</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.oligo_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tool for automatically generating oligos from the output of run().
+Returns input dataframe with new columns containing pegRNA version and epegRNA version of oligo.
+(epegRNA version just contains additional 3’ structural motif, tevopreQ1, which helps prevent degradation
+of the pegRNA)</p>
+<dl>
+<dt>ranked_filtered</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the pegRNAs for the selected input mutations. Generated by run() or pegRNA_generator()</p>
+</dd>
+<dt>five_prime_adapter</dt><dd><p><em>type = str</em></p>
+<p>5’ Prime Adapter. The automatically provided 5’ adapter contains an Esp3I (BsmBI) site. Can be swapped with 
+whatever input string user wants.</p>
+</dd>
+<dt>three_prime_adapter</dt><dd><p><em>type = str</em></p>
+<p>5’ Prime Adapter. The automatically provided 5’ adapter contains an Esp3I (BsmBI) site. Can be swapped with 
+whatever input string user wants.</p>
+</dd>
+<dt>gRNA_scaff</dt><dd><p><em>type = str</em></p>
+<p>gRNA scaffold region. Automatically set to a functional gRNA scaffold. Can be swapped with 
+whatever input string user wants.</p>
+</dd>
+<dt>sensor</dt><dd><p><em>type = boolean (True or False)</em></p>
+<p>If true, include synthetic version of endogenous target site (“sensor” region) in oligo.
+See documentation for more details.</p>
+</dd>
+<dt>append_proto_G</dt><dd><p><em>type = boolean (True or False)</em></p>
+<p>If true, append a ‘G’ to the beginning of the protospacer. Reccomended for efficient transcription of pegRNA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.on_off_target">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">on_off_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pegRNA_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chrom_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.on_off_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the on/off-target scores for protospacers occuring in exons.
+If chrom_dict is not provided, set it equal to ‘none’ and ranking/filtration will proceed without on/off target score.</p>
+<dl>
+<dt>pegRNA_df</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the pegRNAs for the selected input mutations. Generated by run() or pegRNA_generator()</p>
+</dd>
+<dt>chrom_dict</dt><dd><p><em>type = dict</em></p>
+<p>A dictionary containing the on/off-target scores for each of the exonic regions in each chromosome.
+Keys = chromosome identifiers. See documentation for more information and access to provided reference file.</p>
+<p>If no reference file available SET THIS EQUAL TO ‘none’ and ranking will proceed without on/off target score.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.other_filtration">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">other_filtration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pegRNA_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.other_filtration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classifies properties of pegRNAs in pegRNA_df besides on/off target score. Returns pegRNA_df with properties added.
+These properties are checking for:</p>
+<ol class="arabic simple">
+<li><p>u6 terminator (polyT sequence)</p></li>
+<li><p>PBS GC content</p></li>
+<li><p>RE site presence – EcoRI and Esp3I sites (used for cloning in the provided adapter sequences)</p></li>
+<li><p>Checks whether the last templated nucleotide is C (reccomended against in original Anzalone et al. paper)</p></li>
+</ol>
+<dl>
+<dt>pegRNA_df</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the pegRNAs for the selected input mutations. Generated by run() or pegRNA_generator()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.pegRNA_generator">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">pegRNA_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutant_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PBS_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RTT_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PAM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marked_array_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mut_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minus_seqs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.pegRNA_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates all possible pegRNAs matching the input specifications.
+Returns a dataframe containing the pegRNAs and some of their properties quantified.</p>
+<dl>
+<dt>mutant_input</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the input mutations from which selections are made to generate pegRNAs.
+See documentation for precise qualities of this dataframe</p>
+</dd>
+<dt>PBS_length</dt><dd><p><em>type = int</em></p>
+<p>Specifies the primer binding sequence (PBS) length of the pegRNA being generated.</p>
+</dd>
+<dt>RTT_length</dt><dd><p><em>type = int</em></p>
+<p>Specifies the reverse transcriptase template (RTT) length of the pegRNA being generated. 
+Must match input into PAM_finder (so that marked_array_list matches).</p>
+</dd>
+<dt>PAM</dt><dd><p><em>type = str</em></p>
+<p>String designating what PAM sequence to search for. Not all PAM sequences exhaustively tested.
+Normally this will be equal to ‘NGG’ for most existing prime editors.</p>
+</dd>
+<dt>marked_array_list</dt><dd><p><em>type = list</em></p>
+<p>List containing locations of PAM sequences GENERATED BY PAM_finder function (and/or PAM_finder_multi_index)</p>
+</dd>
+<dt>mut_idx</dt><dd><p><em>type = list or int</em></p>
+<p>List of indeces (or single index (type=int)) of mutations within mutant_input that user wants to perform function on (i.e. a subset of the mutations).</p>
+</dd>
+<dt>records</dt><dd><p><em>type = list</em></p>
+<p>List containing reference genome. See documentation for precise requirements.</p>
+</dd>
+<dt>index_list</dt><dd><p><em>type = list</em></p>
+<p>Index for records list (reference genome). See documentation for precise requirements.</p>
+</dd>
+<dt>minus_seqs</dt><dd><p><em>type = list</em></p>
+<p>List containing reverse complement of records (reference genome). Generated by minus_seq_generator function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.pegrna_display">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">pegrna_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pegRNA_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pegRNA_df_loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.pegrna_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>A visualization tool for looking at pegRNAs.
+Returns a figure that can be saved or shown inline.</p>
+<dl>
+<dt>pegRNA_df</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the pegRNAs for the selected input mutations. Generated by run() or pegRNA_generator()</p>
+</dd>
+<dt>pegRNA_df_loc</dt><dd><p><em>type = int</em></p>
+<p>Which iloc (row index) in pegRNA_df_loc to generate the visualizaiton for.</p>
+</dd>
+<dt>records</dt><dd><p><em>type = list</em></p>
+<p>List containing reference genome. See documentation for precise requirements.</p>
+</dd>
+<dt>index_list</dt><dd><p><em>type = list</em></p>
+<p>Index for records list (reference genome). See documentation for precise requirements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.ranking_system">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">ranking_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pegRNA_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chrom_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'composite</span> <span class="pre">score'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guides_per_mut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.ranking_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates properties of pegRNAs in pegRNA_df and then ranks pegRNAs and returns the desired number of top ranked guides.</p>
+<dl>
+<dt>pegRNA_df</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the pegRNAs for the selected input mutations. Generated by run() or pegRNA_generator()</p>
+</dd>
+<dt>chrom_dict</dt><dd><p><em>type = dict</em></p>
+<p>A dictionary containing the on/off-target scores for each of the exonic regions in each chromosome.
+Keys = chromosome identifiers. See documentation for more information and access to provided reference file.</p>
+<p>If no reference file available SET THIS EQUAL TO ‘none’ and ranking will proceed without on/off target score.</p>
+</dd>
+<dt>rank_by</dt><dd><p><em>type = str</em></p>
+<p>This specifies what property of the pegRNAs to use for ranking purpose (i.e. what column of pegRNA_df). This is automatically set to “composite score”
+which takes into account all of the pegRNA properties. Can alternatively be set to any of the pegRNA properties (i.e. column names) calculated
+by filtration() or any user provided pegRNA properties, as long as this is a column in pegRNA_df.</p>
+</dd>
+<dt>guides_per_mut</dt><dd><p><em>type=int</em></p>
+<p>Desired number of pegRNAs to output for each mutation. Automatically set to 5. To output all possible guides, just set
+this to a large number (e.g. 1000).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.run">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mutant_input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mut_idx_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">records</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minus_seqs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chrom_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PAM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RTT_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PBS_lengths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">guides_per_mut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that (a) generates all possible pegRNAs for input mutations according to input parameters and
+(b) filters and ranks these pegRNAs according to their properties.</p>
+<p>Returns a pd.DataFrame containing the pegRNAs.</p>
+<dl>
+<dt>mutant_input</dt><dd><p><em>type = pd.DataFrame</em></p>
+<p>A dataframe containing the input mutations from which selections are made to generate pegRNAs.
+See documentation for precise qualities of this dataframe</p>
+</dd>
+<dt>mut_idx_list</dt><dd><p><em>type = list</em></p>
+<p>List of indeces of mutations within mutant_input that user wants to perform function on (i.e. a subset of the mutations).</p>
+</dd>
+<dt>records</dt><dd><p><em>type = list</em></p>
+<p>List containing reference genome. See documentation for precise requirements.</p>
+</dd>
+<dt>index_list</dt><dd><p><em>type = list</em></p>
+<p>Index for records list (reference genome). See documentation for precise requirements.</p>
+</dd>
+<dt>minus_seqs</dt><dd><p><em>type = list</em></p>
+<p>List containing reverse complement of records (reference genome). Generated by minus_seq_generator function.</p>
+</dd>
+<dt>chrom_dict</dt><dd><p><em>type = dict</em></p>
+<p>A dictionary containing the on/off-target scores for each of the exonic regions in each chromosome.
+Keys = chromosome identifiers. See documentation for more information and access to provided reference file.</p>
+<p>If no reference file available SET THIS EQUAL TO ‘none’ and ranking will proceed without on/off target score.</p>
+</dd>
+<dt>PAM</dt><dd><p><em>type = str</em></p>
+<p>String designating what PAM sequence to search for. Not all PAM sequences exhaustively tested.
+Normally this will be equal to ‘NGG’ for most existing prime editors.</p>
+</dd>
+<dt>PBS_lengths</dt><dd><p><em>type = list</em></p>
+<p>Specifies a list of the primer binding sequence (PBS) lengths of the pegRNAs being generated.</p>
+</dd>
+<dt>RTT_lengths</dt><dd><p><em>type = list</em></p>
+<p>Specifies a list of the reverse transcriptase template (RTT) lengths of the pegRNAs being generated.</p>
+</dd>
+<dt>guides_per_mut</dt><dd><p><em>type=int</em></p>
+<p>Desired number of pegRNAs to output for each mutation. Automatically set to 5. To output all possible guides, just set
+this to a large number (e.g. 1000).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.split">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">word</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple function for splitting string into component characters</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pegg.target_design_w_flank">
+<span class="sig-prename descclassname"><span class="pre">pegg.</span></span><span class="sig-name descname"><span class="pre">target_design_w_flank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">PAM_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq_end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seq1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strand</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pegg.target_design_w_flank" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a synthetic version of the endogenous target site (“sensor” site). 
+This sensor region can be used as a proxy readout of editing outcomes at the endogenous locus if 
+included in the oligo with the pegRNA. For more information about sensor sites see: 
+<a class="reference external" href="https://www.nature.com/articles/s41587-021-01172-3">https://www.nature.com/articles/s41587-021-01172-3</a></p>
+<dl>
+<dt>PAM_location</dt><dd><p><em>type = int</em></p>
+<p>Int of location of PAM sequence (generated from PAM_finder function).</p>
+</dd>
+<dt>seq_start</dt><dd><p><em>type = int</em></p>
+<p>Start site of mutation of interest.</p>
+</dd>
+<dt>seq_end</dt><dd><p><em>type = int</em></p>
+<p>End site of mutation of interest.</p>
+</dd>
+<dt>seq1</dt><dd><p><em>type = str</em></p>
+<p>Chromosome sequence that corresponds to location of mutation of interest  .</p>
+</dd>
+<dt>max_size</dt><dd><p><em>type = int</em></p>
+<p>Size of synthetic target site. Reccomended size = 60 nt.</p>
+</dd>
+<dt>strand</dt><dd><p><em>type = str</em></p>
+<p>Strand of PAM sequence. Options = ‘+’ or ‘-‘.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
