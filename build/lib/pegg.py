@@ -2747,7 +2747,8 @@ def clinvar_VCF_translator(filepath, variation_ids):
     CLNDN = []
     CLNSIG = []
     allele_id = []
-    id1=[]
+    
+    var_id = []
 
     #for translating between Clinvar variation classes, and PEGG-readable versions...
     a = ['Deletion', 'Duplication', 'Indel', 'Insertion', 'Inversion',
@@ -2760,7 +2761,8 @@ def clinvar_VCF_translator(filepath, variation_ids):
 
     for variant in VCF(filepath): # or VCF('some.bcf')
         if int(variant.ID) in variation_ids:
-
+            
+            var_id.append(int(variant.ID))
             allele_id.append(variant.INFO.get('ALLELEID'))
             #change it to make it flexible for a list
             gene.append(variant.INFO.get('GENEINFO'))
@@ -2779,6 +2781,7 @@ def clinvar_VCF_translator(filepath, variation_ids):
                 tot = len(variant.ALT)-1
                 alt.append(variant.ALT[0])
                 for i in range(tot):
+                    var_id.append(int(variant.ID))
                     allele_id.append(variant.INFO.get('ALLELEID'))
                     #change it to make it flexible for a list
                     gene.append(variant.INFO.get('GENEINFO'))
@@ -2802,8 +2805,9 @@ def clinvar_VCF_translator(filepath, variation_ids):
     d1 = ['Hugo_Symbol', 'Chromosome', 'Start_Position', 'End_Position', 'Reference_Allele', 
           'Tumor_Seq_Allele2', 'Variant_Type', 'Variation_ID','Allele_ID','CLNSIG', 'CLNHGVS', 'CLNDN']
 
-    combined = [gene, chrom, start, end, ref, alt, var_type, variation_ids, allele_id,
+    combined = [gene, chrom, start, end, ref, alt, var_type, var_id, allele_id,
                CLNSIG, CLNHGVS, CLNDN]
+    
     d = dict(zip(d1, combined))
     clinvar = pd.DataFrame(data = d)
 

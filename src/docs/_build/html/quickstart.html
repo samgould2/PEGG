@@ -73,6 +73,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#reference-file-formatting">Reference File Formatting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#input-mutations">(1) Input mutations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#a-compatible-input-files">(1a) Compatible Input Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#b-clinvar-variants">(1b) ClinVar variants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reference-genome">(2) Reference Genome</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#on-off-target-scores">(3) On/Off Target scores</a></li>
 </ul>
@@ -160,6 +161,24 @@ The input mutation dataframe <strong>must match the column naming scheme shown a
 <p>All of the mutation files listed in the cBioPortal are in the correct format for input into PEGG.
 They can be accessed at the following link: <a class="reference external" href="http://www.cbioportal.org/datasets">http://www.cbioportal.org/datasets</a></p>
 <p>See the jupyter notebook tutorial for a more in depth case study of using these reference databases.</p>
+</section>
+<section id="b-clinvar-variants">
+<h3>(1b) ClinVar variants<a class="headerlink" href="#b-clinvar-variants" title="Permalink to this headline">¶</a></h3>
+<p>PEGG also includes a built in tool that allows users to put a list of ClinVar variants in the correct format for interpretation by PEGG.
+This is done using the <strong>pegg.clinvar_VCF_translator()</strong> function, where users provide a clinvar.vcf.gz file and a list of Variation IDs that
+correspond with the variants they want to translate. These variation IDs are the identifiers for ClinVar variants:</p>
+<img alt="_images/var_ids.png" src="_images/var_ids.png" />
+<p>See the below codeblock for the precise syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#this is the filepath to the .vcf.gz file (needs to be updated according to user)</span>
+<span class="n">filepath</span> <span class="o">=</span> <span class="s1">&#39;.../clinvar_20221001.vcf.gz&#39;</span>
+<span class="n">variation_ids</span> <span class="o">=</span> <span class="p">[</span><span class="mi">925574</span><span class="p">,</span> <span class="mi">925434</span><span class="p">,</span> <span class="mi">926695</span><span class="p">,</span> <span class="mi">925707</span><span class="p">,</span> <span class="mi">325626</span><span class="p">,</span> <span class="mi">1191613</span><span class="p">,</span><span class="mi">308061</span><span class="p">]</span> <span class="c1">#list of ClinVar variants to translate</span>
+<span class="n">clinvar</span> <span class="o">=</span> <span class="n">pegg</span><span class="o">.</span><span class="n">clinvar_VCF_translator</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">variation_ids</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This outputs a dataframe in the correct format for generating pegRNAs using PEGG:</p>
+<img alt="_images/out_clinvar.png" src="_images/out_clinvar.png" />
+<p>ClinVar VCF files can be accessed here: <a class="reference external" href="https://ftp.ncbi.nlm.nih.gov/pub/clinvar/">https://ftp.ncbi.nlm.nih.gov/pub/clinvar/</a></p>
+<p>A sample vcf.gz file with GrCh37 coordinates is provided in the <a class="reference external" href="https://www.dropbox.com/sh/h6fdvpv3tyny27q/AADYVOkJe12XZiD4pf3_WXuga?dl=0">dropbox of reference files</a> as well.</p>
 </section>
 <section id="reference-genome">
 <h3>(2) Reference Genome<a class="headerlink" href="#reference-genome" title="Permalink to this headline">¶</a></h3>

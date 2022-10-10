@@ -75,6 +75,31 @@ They can be accessed at the following link: http://www.cbioportal.org/datasets
 See the jupyter notebook tutorial for a more in depth case study of using these reference databases.
 
 
+(1b) ClinVar variants
+~~~~~~~~~~~~~~~~~~~~~~~
+PEGG also includes a built in tool that allows users to put a list of ClinVar variants in the correct format for interpretation by PEGG. 
+This is done using the **pegg.clinvar_VCF_translator()** function, where users provide a clinvar.vcf.gz file and a list of Variation IDs that 
+correspond with the variants they want to translate. These variation IDs are the identifiers for ClinVar variants:
+
+.. image:: var_ids.png
+
+See the below codeblock for the precise syntax:
+
+.. code-block:: python
+
+   #this is the filepath to the .vcf.gz file (needs to be updated according to user)
+   filepath = '.../clinvar_20221001.vcf.gz'
+   variation_ids = [925574, 925434, 926695, 925707, 325626, 1191613,308061] #list of ClinVar variants to translate
+   clinvar = pegg.clinvar_VCF_translator(filepath, variation_ids)
+
+This outputs a dataframe in the correct format for generating pegRNAs using PEGG:
+
+.. image:: out_clinvar.png
+
+ClinVar VCF files can be accessed here: https://ftp.ncbi.nlm.nih.gov/pub/clinvar/
+
+A sample vcf.gz file with GrCh37 coordinates is provided in the `dropbox of reference files <https://www.dropbox.com/sh/h6fdvpv3tyny27q/AADYVOkJe12XZiD4pf3_WXuga?dl=0>`_ as well.
+
 (2) Reference Genome
 ~~~~~~~~~~~~~~~~~~~~~
 
