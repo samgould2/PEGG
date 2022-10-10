@@ -2715,3 +2715,97 @@ def matrix_rep_library(rf,gene_name,start_end_cds, strand, plot=True):
     
     return matrix_snp,matrix_ins, matrix_del, matrix_neutral
 
+#------------ClinVar variation id reader-----------------
+from cyvcf2 import VCF
+
+def clinvar_VCF_translator(filepath, variation_ids):
+    """
+    Function that takes a clinvar.vcf.gz file containing information about variants, as well as a list of variation ID numbers,
+    and returns a pandas dataframe containing the variants in a format that can be used by PEGG to design pegRNAs.
+    
+    Parameters
+    ----------
+    filepath
+        *type = str*
+        
+        Filepath to the clinvar.vcf.gz file.
+        
+    variation_ids
+        *type = list*
+        
+        List of variation IDs that the user wants to convert to .
+        
+    """
+    gene = []
+    ref = []
+    alt = []
+    chrom = []
+    start = []
+    end = []
+    CLNHGVS = []
+    var_type = []
+    CLNDN = []
+    CLNSIG = []
+    allele_id = []
+    id1=[]
+
+    #for translating between Clinvar variation classes, and PEGG-readable versions...
+    a = ['Deletion', 'Duplication', 'Indel', 'Insertion', 'Inversion',
+        'Microsatellite', 'Variation', 'single_nucleotide_variant']
+    b = ['DEL', 'Duplication', 'Indel', 'INS', 'Inversion',
+        'Microsatellite', 'Variation', 'SNP']
+
+    var_dict = dict(zip(a,b))
+
+
+    for variant in VCF(filepath): # or VCF('some.bcf')
+        if int(variant.ID) in variation_ids:
+
+            allele_id.append(variant.INFO.get('ALLELEID'))
+            #change it to make it flexible for a list
+            gene.append(variant.INFO.get('GENEINFO'))
+            CLNSIG.append(variant.INFO.get('CLNSIG'))
+            var_type.append(variant.INFO.get('CLNVC'))
+            CLNHGVS.append(variant.INFO.get('CLNHGVS'))
+            CLNDN.append(variant.INFO.get('CLNDN'))
+            ref.append(variant.REF)
+            chrom.append(variant.CHROM)
+            start.append(variant.start)
+            end.append(variant.end)
+
+            if len(variant.ALT)==1:
+                alt.append(variant.ALT[0])
+            elif len(variant.ALT)>1:
+                tot = len(variant.ALT)-1
+                alt.append(variant.ALT[0])
+                for i in range(tot):
+                    allele_id.append(variant.INFO.get('ALLELEID'))
+                    #change it to make it flexible for a list
+                    gene.append(variant.INFO.get('GENEINFO'))
+                    CLNSIG.append(variant.INFO.get('CLNSIG'))
+                    var_type.append(variant.INFO.get('CLNVC'))
+                    CLNHGVS.append(variant.INFO.get('CLNHGVS'))
+                    CLNDN.append(variant.INFO.get('CLNDN'))
+                    ref.append(variant.REF)
+                    chrom.append(variant.CHROM)
+                    start.append(variant.start)
+                    end.append(variant.end)
+                    alt.append(variant.ALT[i+1])
+                    #d1.append(variant.ID)
+
+    var_type = [var_dict[i] for i in var_type]
+    gene = [i.split(':')[0] for i in gene] #extracting just gene information...
+
+    #fixing issue where Clinvar variants start one position early for some reason...
+    start = np.asarray(start)+1
+    
+    d1 = ['Hugo_Symbol', 'Chromosome', 'Start_Position', 'End_Position', 'Reference_Allele', 
+          'Tumor_Seq_Allele2', 'Variant_Type', 'Variation_ID','Allele_ID','CLNSIG', 'CLNHGVS', 'CLNDN']
+
+    combined = [gene, chrom, start, end, ref, alt, var_type, variation_ids, allele_id,
+               CLNSIG, CLNHGVS, CLNDN]
+    d = dict(zip(d1, combined))
+    clinvar = pd.DataFrame(data = d)
+
+    return clinvar
+
