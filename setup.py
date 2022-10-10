@@ -6,13 +6,13 @@ setup(
     author = 'Samuel Gould',
     author_email = 'samgould@mit.edu',
     url = 'https://github.com/samgould2/PEGG',
-    version = '1.0.3',
+    version = '1.0.4',
     description = 'Prime Editing Guide Generator',
     py_modules = ["pegg"],
     package_dir = {'': 'src'},
 
     install_requires = ["Bio>=1.4.0",
-        "cyvcf2>=0.30.18"
+        "cyvcf2>=0.30.18",
         "matplotlib>=3.5.1",
         "mock>=4.0.3",
         "numpy>=1.21.5",
