@@ -10,7 +10,7 @@
    :width: 200px
    :height: 200px
 
-`Click here to read the bioRxiv preprint <https://www.biorxiv.org/content/10.1101/2022.10.26.513842v1>`_ 
+`Click here to read the bioRxiv preprint <https://www.biorxiv.org/content/10.1101/2022.10.26.513842v2>`_ 
 ******************************************************************************************************************
 
 PEGG is a python module that designs prime editing guide RNAs (pegRNAs) for use in precision genome editing.
@@ -46,6 +46,10 @@ PEGG is available through the python package index. To install, use pip:
    jupyter_tutorial
    PEGG
    about
+
+PEGG is an open source python package. If you use PEGG, please cite it using the following citation:
+
+Gould, S.I., Sánchez-Rivera, F.J. (2022). PEGG: A computational pipeline for rapid design of prime editing guide RNAs and sensor libraries. *bioRxiv*. DOI: https://doi.org/10.1101/2022.10.26.513842.
 
 Function Index
 ***************
