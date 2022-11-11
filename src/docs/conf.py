@@ -30,7 +30,7 @@ author = 'Samuel Gould'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc'
+extensions = ['sphinx.ext.autodoc', "sphinx-favicon"
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -56,3 +56,5 @@ html_theme_path = ["_themes", ]
 html_static_path = ['_static']
 
 html_logo="PEGG_notext.png"
+
+favicons = ["PEGG_3.png"]
