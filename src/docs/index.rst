@@ -10,7 +10,7 @@
    :width: 200px
    :height: 200px
 
-`Click here to read the bioRxiv preprint <https://www.biorxiv.org/content/10.1101/2022.10.26.513842v2>`_ 
+`Click here to read the bioRxiv preprint <https://www.biorxiv.org/content/10.1101/2022.10.26.513842v3>`_ 
 ******************************************************************************************************************
 
 PEGG is a python module that designs prime editing guide RNAs (pegRNAs) for use in precision genome editing.
