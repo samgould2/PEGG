@@ -5,7 +5,7 @@
    :width: 200px
    :height: 200px
 
-**THIS VERSION OF PEGG IS NO LONGER MAINTAINED. PLEASE VISIT https://github.com/samgould2/PEGG2.0 FOR THE MOST UP-TO-DATE VERSION OF THE PACKAGE**
+**!! THIS VERSION OF PEGG IS NO LONGER MAINTAINED. PLEASE VISIT https://github.com/samgould2/PEGG2.0 FOR THE MOST UP-TO-DATE VERSION OF THE PACKAGE !!**
 
 `Full Documentation is available here (pegg.readthedocs.io) <https://pegg.readthedocs.io/en/latest/>`_
 
